@@ -105,7 +105,9 @@ mixin(Rectangle, Movable)
   "Rectangle": {
     "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
-    "method": "area"
+    "method": {
+      "area": true
+    }
   }
 }
 ```

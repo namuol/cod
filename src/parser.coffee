@@ -11,17 +11,25 @@ build = (first, tail) ->
   doc = {}
   obj = doc
   len = list.length
-  
+
   doIndent = (key) ->
-    if obj[key] is true
+    if (not obj[key]?) or obj[key] is true
       obj[key] = {}
     obj = obj[key]
 
   for item in list
-    continue  unless item? # Blank lines are undefined
+    continue  unless item? # Blank lines are undefined; skip over them.
+
     switch item.type
       when 'tag'
-        key = item.name
+        keys = item.name.split ':'
+        
+        prevObj = obj # HACKish
+        
+        for key in keys[...-1]
+          doIndent key
+
+        key = keys[keys.length-1]
         unless obj[key]?
           obj[key] = item.value or true
         else
@@ -29,17 +37,20 @@ build = (first, tail) ->
             obj[key] = [obj[key]]
           if isArray obj[key]
             obj[key].push item.value or true
+        
+        obj = prevObj # HACKish
 
       when 'indent'
-        key = prev.name
-        doIndent(key)
-        keyStack.push key
+        for key in prev.name.split ':'
+          doIndent(key)
+        keyStack.push prev.name
 
       when 'outdent'
         keyStack.pop()
         obj = doc
-        for key in keyStack
-          obj = obj[key]
+        for name in keyStack
+          for key in name.split(':')
+            obj = obj[key]
 
       when 'text'
         if item.text

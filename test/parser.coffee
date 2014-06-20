@@ -122,3 +122,100 @@ describe 'the cod parser', ->
     }
 
     testParse input, expected
+
+  it 'allows for inline-nesting of tags', ->
+    input =
+      '''
+      @test:foo:bar 42
+      '''
+
+    expected = {
+      "test": {
+        "foo": {
+          "bar": 42
+        }
+      }
+    }
+
+    testParse input, expected
+
+
+  it 'allows for mixing of inline-nested and normal nested tags', ->
+    input =
+      '''
+      @test:foo:bar
+        @biz 42
+      '''
+
+    expected = {
+      "test": {
+        "foo": {
+          "bar": {
+            "biz": 42
+          }
+        }
+      }
+    }
+
+    testParse input, expected
+
+  it 'allows for mixing of inline-nested and normal nested tags with outdenting', ->
+    input =
+      '''
+      @test:foo:bar
+        @biz 42
+      @whatever
+        @yes
+      '''
+
+    expected = {
+      "test": {
+        "foo": {
+          "bar": {
+            "biz": 42
+          }
+        }
+      },
+      "whatever": {
+        "yes": true
+      }
+    }
+
+    testParse input, expected
+
+  it 'can handle the complex example from the readme', ->
+    input =
+      '''
+      @Rectangle
+        @extends Shape
+        A four-sided shape with all right angles.
+
+      @Rectangle:method:area
+        Get the area of this rectangle.
+        @return
+          The area of this rectangle.
+          @type Number
+
+      @Rectangle:mixin Scalable
+      @Rectangle:mixin Movable
+
+      '''
+
+    expected = {
+      "Rectangle": {
+        "!text": "A four-sided shape with all right angles.",
+        "extends": "Shape",
+        "method": {
+          "area": {
+            "!text": "Get the area of this rectangle.",
+            "return": {
+              "!text": "The area of this rectangle.",
+              "type": "Number"
+            }
+          }
+        },
+        "mixin": ["Scalable", "Movable"]
+      }
+    }
+
+    testParse input, expected
