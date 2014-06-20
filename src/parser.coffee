@@ -11,17 +11,24 @@ build = (first, tail) ->
   doc = {}
   obj = doc
   len = list.length
-
+  
   doIndent = (key) ->
     if obj[key] is true
       obj[key] = {}
     obj = obj[key]
 
   for item in list
+    continue  unless item? # Blank lines are undefined
     switch item.type
       when 'tag'
         key = item.name
-        obj[key] = item.value or true
+        unless obj[key]?
+          obj[key] = item.value or true
+        else
+          if typeof obj[key] is 'string'
+            obj[key] = [obj[key]]
+          if isArray obj[key]
+            obj[key].push item.value or true
 
       when 'indent'
         key = prev.name
@@ -35,7 +42,8 @@ build = (first, tail) ->
           obj = obj[key]
 
       when 'text'
-        obj['!text'] = item.text
+        if item.text
+          obj['!text'] = item.text
 
     prev = item
 

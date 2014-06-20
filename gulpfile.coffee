@@ -5,7 +5,7 @@ coffee = require 'coffee-script'
 file = require 'file-utils'
 
 gulp.task 'build:parser', ->
-  initializer_cs = file.read 'src/initializer.coffee'
+  initializer_cs = file.read 'src/parser.coffee'
   try
     initializer = coffee.compile initializer_cs, bare: true
   catch err

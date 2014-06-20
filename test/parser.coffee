@@ -7,6 +7,18 @@ testParse = (input, expected) ->
   assert.deepEqual result, expected
 
 describe 'the cod parser', ->
+  it 'parses plain old text', ->
+    input =
+      '''
+      Hello, this is some text.
+      '''
+
+    expected = {
+      "!text": "Hello, this is some text."
+    }
+
+    testParse input, expected
+
   it 'parses a single tag', ->
     input =
       '''
@@ -76,23 +88,37 @@ describe 'the cod parser', ->
 
     testParse input, expected
 
-  # it 'parses inline-nested tags', ->
-  #   input =
-  #     '''
-  #     @Rectangle
-  #       @extends Shape
-  #       A four-sided shape with all right angles.
+  it 'allows tags to be "re-opened"', ->
+    input =
+      '''
+      @Rectangle
+        @extends Shape
+        A four-sided shape with all right angles.
 
-  #     @Rectangle:mixin Scalable
-  #     '''
+      @Rectangle
+        @mixin Scalable
+      '''
 
-  #   expected = {
-  #     "Rectangle": {
-  #       "!text": "A four-sided shape with all right angles.",
-  #       "extends": "Shape",
-  #       "mixin": "Scalable"
-  #     }
-  #   }
+    expected = {
+      "Rectangle": {
+        "!text": "A four-sided shape with all right angles.",
+        "extends": "Shape",
+        "mixin": "Scalable"
+      }
+    }
 
-  #   testParse input, expected
+    testParse input, expected
 
+  it 'builds an array when mutiple tag-value pairs occur', ->
+    input =
+      '''
+      @test aaa
+      @test bbb
+      @test ccc
+      '''
+
+    expected = {
+      "test": ["aaa", "bbb", "ccc"]
+    }
+
+    testParse input, expected
