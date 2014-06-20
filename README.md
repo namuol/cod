@@ -1,10 +1,10 @@
-# Cod
-
-An unopinionated documentation generator.
-
 <p align="center">
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
+
+# Cod
+
+An unopinionated documentation generator.
 
 (NOTE: Cod is currently just a concept; development is in-progress)
 
@@ -16,8 +16,9 @@ allowing for an arbitrary structure.
 ```coffee
 ###
 @Rectangle
-  @extends Shape
   A four-sided shape with all right angles.
+
+  @extends Shape
 ###
 class Rectangle extends Shape
   ###
@@ -30,12 +31,12 @@ class Rectangle extends Shape
   area: -> return @width * @height
   
 ###
-@Rectangle:mixins Scalable
+@Rectangle:mixin Scalable
 ###
 mixin(Rectangle, Scalable)
 
 ###
-@Rectangle:mixins Movable
+@Rectangle:mixin Movable
 ###
 mixin(Rectangle, Movable)
 ```
@@ -45,7 +46,7 @@ mixin(Rectangle, Movable)
   "Rectangle": {
     "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
-    "mixins": ["Scalable", "Movable"],
+    "mixin": ["Scalable", "Movable"],
     "method": {
       "area": {
         "!text": "Get the area of this rectangle.",
