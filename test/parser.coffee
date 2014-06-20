@@ -76,23 +76,23 @@ describe 'the cod parser', ->
 
     testParse input, expected
 
-  it 'parses inline-nested tags', ->
-    input =
-      '''
-      @Rectangle
-        @extends Shape
-        A four-sided shape with all right angles.
+  # it 'parses inline-nested tags', ->
+  #   input =
+  #     '''
+  #     @Rectangle
+  #       @extends Shape
+  #       A four-sided shape with all right angles.
 
-      @Rectangle:mixin Scalable
-      '''
+  #     @Rectangle:mixin Scalable
+  #     '''
 
-    expected = {
-      "Rectangle": {
-        "!text": "A four-sided shape with all right angles.",
-        "extends": "Shape",
-        "mixin": "Scalable"
-      }
-    }
+  #   expected = {
+  #     "Rectangle": {
+  #       "!text": "A four-sided shape with all right angles.",
+  #       "extends": "Shape",
+  #       "mixin": "Scalable"
+  #     }
+  #   }
 
-    testParse input, expected
+  #   testParse input, expected
 
