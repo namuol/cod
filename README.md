@@ -21,7 +21,7 @@ allowing for an arbitrary structure.
 ###
 class Rectangle extends Shape
   ###
-  @Rectangle:method area
+  @Rectangle:method:area
     Get the area of this rectangle.
     @return
       The area of this rectangle.
@@ -40,17 +40,17 @@ mixin(Rectangle, Scalable)
 mixin(Rectangle, Movable)
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles.",
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
     "mixins": ["Scalable", "Movable"],
     "method": {
       "area": {
-        "!body": "Get the area of this rectangle.",
+        "!text": "Get the area of this rectangle.",
         "return": {
-          "!body": "The area of this rectangle.",
+          "!text": "The area of this rectangle.",
           "type": "Number"
         }
       }
@@ -67,13 +67,13 @@ mixin(Rectangle, Movable)
 @Rectangle
 ```
 
-```js
+```json
 {
   "Rectangle": true
 }
 ```
 
------
+----
 
 ```
 @Rectangle
@@ -81,16 +81,16 @@ mixin(Rectangle, Movable)
   A four-sided shape with all right angles.
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape"
   }
 }
 ```
 
------
+----
 
 ```
 @Rectangle
@@ -100,47 +100,24 @@ mixin(Rectangle, Movable)
 @Rectangle:method:area
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
-    "extends": "Shape",
-    "method": {
-      "area": true
-    }
-  }
-}
-```
-
------
-
-
-```
-@Rectangle
-  @extends Shape
-  A four-sided shape with all right angles.
-
-@Rectangle:method area
-```
-
-```js
-{
-  "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
     "method": "area"
   }
 }
 ```
 
------
+----
 
 ```
 @Rectangle
   @extends Shape
   A four-sided shape with all right angles.
 
-@Rectangle:method area
+@Rectangle:method:area
   Get the area of this rectangle.
   @return
     The area of this rectangle.
@@ -148,16 +125,16 @@ mixin(Rectangle, Movable)
 
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
     "method": {
       "area": {
-        "!body": "Get the area of this rectangle.",
+        "!text": "Get the area of this rectangle.",
         "return": {
-          "!body": "The area of this rectangle.",
+          "!text": "The area of this rectangle.",
           "type": "Number"
         }
       }
@@ -166,14 +143,14 @@ mixin(Rectangle, Movable)
 }
 ```
 
------
+----
 
 ```
 @Rectangle
   @extends Shape
   A four-sided shape with all right angles.
 
-@Rectangle:method area
+@Rectangle:method:area
   Get the area of this rectangle.
   @return
     The area of this rectangle.
@@ -183,16 +160,16 @@ mixin(Rectangle, Movable)
 
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
     "method": {
       "area": {
-        "!body": "Get the area of this rectangle.",
+        "!text": "Get the area of this rectangle.",
         "return": {
-          "!body": "The area of this rectangle.",
+          "!text": "The area of this rectangle.",
           "type": "Number"
         }
       }
@@ -202,14 +179,14 @@ mixin(Rectangle, Movable)
 }
 ```
 
------
+----
 
 ```
 @Rectangle
   @extends Shape
   A four-sided shape with all right angles.
 
-@Rectangle:method area
+@Rectangle:method:area
   Get the area of this rectangle.
   @return
     The area of this rectangle.
@@ -220,16 +197,16 @@ mixin(Rectangle, Movable)
 
 ```
 
-```js
+```json
 {
   "Rectangle": {
-    "!body": "A four-sided shape with all right angles."
+    "!text": "A four-sided shape with all right angles.",
     "extends": "Shape",
     "method": {
       "area": {
-        "!body": "Get the area of this rectangle.",
+        "!text": "Get the area of this rectangle.",
         "return": {
-          "!body": "The area of this rectangle.",
+          "!text": "The area of this rectangle.",
           "type": "Number"
         }
       }
