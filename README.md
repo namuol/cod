@@ -30,7 +30,6 @@ Input: (`Rectangle.coffee`)
 ###*
 @Rectangle
   A four-sided shape with all right angles.
-
   @extends Shape
 ###
 class Rectangle extends Shape
