@@ -2,7 +2,7 @@
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
 
-# Cod
+# Cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest)
 
 An unopinionated documentation generator.
 
