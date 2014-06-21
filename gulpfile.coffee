@@ -20,9 +20,9 @@ buildPEG = (name) ->
     .pipe gulp.dest 'lib'
 
 gulp.task 'build:parser', -> buildPEG 'parser'
-gulp.task 'build:extract', ->
-  gulp.src 'src/extract.coffee'
+gulp.task 'build:coffee', ->
+  gulp.src 'src/*.coffee'
     .pipe coffee bare: true
     .pipe gulp.dest 'lib'
 
-gulp.task 'default', ['build:parser', 'build:extract']
+gulp.task 'default', ['build:parser', 'build:coffee']

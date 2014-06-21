@@ -94,7 +94,6 @@ describe 'the cod parser', ->
       @Rectangle
         @extends Shape
         A four-sided shape with all right angles.
-
       @Rectangle
         @mixin Scalable
       '''
@@ -187,18 +186,15 @@ describe 'the cod parser', ->
     input =
       '''
       @Rectangle
-        @extends Shape
         A four-sided shape with all right angles.
-
+        @extends Shape
       @Rectangle:method:area
         Get the area of this rectangle.
         @return
           The area of this rectangle.
           @type Number
-
       @Rectangle:mixin Scalable
       @Rectangle:mixin Movable
-
       '''
 
     expected = {

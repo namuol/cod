@@ -2,7 +2,7 @@
   "name": "cod",
   "version": "0.0.0",
   "description": "An unopinionated documentation generator.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "make"
   },
@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/namuol/cod",
   "devDependencies": {
+    "coffee-script": "^1.7.1",
     "mocha": "^1.20.1",
     "pegjs": "^0.8.0",
-    "coffee-script": "^1.7.1",
     "gulp-peg": "^0.1.1",
     "gulp-template": "^0.1.1",
     "gulp": "^3.8.1",

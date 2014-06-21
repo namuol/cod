@@ -1,6 +1,6 @@
 assert = require 'assert'
 fs = require 'fs'
-extract = require '../lib/extract'
+extract = require '../src/extract'
 
 textExtract = (input, expected, openPat='###', closePat='###') ->
   result = extract input, openPat, closePat
@@ -111,7 +111,6 @@ describe 'the cod extractor', ->
       '''
       @Rectangle
         A four-sided shape with all right angles.
-      
         @extends Shape
       @Rectangle:method:area
         Get the area of this rectangle.

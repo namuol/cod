@@ -41,6 +41,7 @@ build = (first, tail) ->
         obj = prevObj # HACKish
 
       when 'indent'
+        continue  if not prev?.name?
         for key in prev.name.split ':'
           doIndent(key)
         keyStack.push prev.name
