@@ -8,7 +8,7 @@ Cod is an unopinionated documentation generator that outputs raw JSON.
 
 ### Example
 
-Usage:
+Usage: (`build.js`)
 
 ```js
 var cod = require('cod'),
@@ -162,6 +162,10 @@ Tags can contain anything except `:` or whitespace.
 ```bash
 npm install cod
 ```
+
+### License
+
+MIT
 
 ---
 
