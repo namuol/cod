@@ -8,6 +8,22 @@ Cod is an unopinionated documentation generator that outputs raw JSON.
 
 ### Example
 
+Usage:
+
+```js
+var cod = require('cod'),
+    file = require('file-util'),
+    input = file.read('Rectangle.coffee'),
+    result;
+
+result = cod(input, {
+  open: '###*',
+  close: '###'
+});
+
+file.write('docs/Rectangle.json', result);
+```
+
 Input: (`Rectangle.coffee`)
 
 ```coffee
@@ -40,20 +56,6 @@ mixin(Rectangle, Scalable)
 @Rectangle:mixin Movable
 ###
 mixin(Rectangle, Movable)
-```
-
-```js
-var cod = require('cod'),
-    file = require('file-util'),
-    input = file.read('Rectangle.coffee'),
-    result;
-
-result = cod(input, {
-  open: '###*',
-  close: '###'
-});
-
-file.write('docs/Rectangle.json', result);
 ```
 
 Result: (`docs/Rectangle.json`)
