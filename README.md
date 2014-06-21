@@ -218,3 +218,7 @@ mixin(Rectangle, Movable)
   }
 }
 ```
+
+---
+
+[![Analytics](https://ga-beacon.appspot.com/UA-33247419-2/cheet.js/README.md)](https://github.com/igrigorik/ga-beacon)
