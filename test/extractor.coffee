@@ -111,6 +111,7 @@ describe 'the cod extractor', ->
       '''
       @Rectangle
         A four-sided shape with all right angles.
+        
         @extends Shape
       @Rectangle:method:area
         Get the area of this rectangle.

@@ -182,11 +182,32 @@ describe 'the cod parser', ->
 
     testParse input, expected
 
+  it 'preserves whitespace in text blocks', ->
+    input =
+      '''
+      This is some multiline
+      text.
+
+
+      Newlines are preserved.
+
+
+
+      Really!
+      '''
+
+    expected = input
+    
+    testParse input, {
+      "!text": input
+    }
+
   it 'can handle the complex example from the readme', ->
     input =
       '''
       @Rectangle
         A four-sided shape with all right angles.
+        
         @extends Shape
       @Rectangle:method:area
         Get the area of this rectangle.
@@ -199,7 +220,7 @@ describe 'the cod parser', ->
 
     expected = {
       "Rectangle": {
-        "!text": "A four-sided shape with all right angles.",
+        "!text": "A four-sided shape with all right angles.\n",
         "extends": "Shape",
         "method": {
           "area": {

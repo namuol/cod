@@ -1,6 +1,7 @@
 module.exports = (text, openPat, closePat) ->
   result = []
   depth = 0
+  subdepth = 0
   inside = false
 
   for line in text.split '\n'
@@ -14,7 +15,14 @@ module.exports = (text, openPat, closePat) ->
         inside = false
       else
         substr = line.substr depth
-        if substr.trim().length > 0
-          result.push substr
+        search = substr.search /[^ ]/
+        if search >= 0
+          subdepth = search
+        else
+          # HACK:
+          # Correct blank lines' whitespace to match
+          #  the previous indentation level.
+          substr = (new Array(subdepth + 1)).join(' ')
+        result.push substr
 
   return result.join '\n'

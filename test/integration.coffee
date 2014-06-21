@@ -51,7 +51,7 @@ describe 'cod', ->
 
     expected = {
       "Rectangle": {
-        "!text": "A four-sided shape with all right angles.",
+        "!text": "A four-sided shape with all right angles.\n",
         "extends": "Shape",
         "method": {
           "area": {

@@ -4,7 +4,7 @@
 
 # Cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest)
 
-Cod is an unopinionated documentation generator that outputs raw JSON.
+Cod is an unopinionated documentation generator that outputs raw JSON, designed to work with any language.
 
 ### Example
 

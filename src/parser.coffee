@@ -17,9 +17,11 @@ build = (first, tail) ->
       obj[key] = {}
     obj = obj[key]
 
-  for item in list
-    continue  unless item? # Blank lines are undefined; skip over them.
+  # Hack: edge-case where we essentially have an empty body:
+  if (list.length is 1) and (list[0].type is 'text') and (not list[0].text?)
+    return {}
 
+  for item in list
     switch item.type
       when 'tag'
         keys = item.name.split ':'
@@ -39,6 +41,7 @@ build = (first, tail) ->
             obj[key].push item.value or true
         
         obj = prevObj # HACKish
+        prev = item
 
       when 'indent'
         continue  if not prev?.name?
@@ -54,10 +57,11 @@ build = (first, tail) ->
             obj = obj[key]
 
       when 'text'
-        if item.text
+        item.text ?= ''
+        if obj['!text']
+          obj['!text'] += '\n' + item.text
+        else
           obj['!text'] = item.text
-
-    prev = item
 
   return doc
 
