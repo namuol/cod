@@ -2,28 +2,34 @@
 Adapted from http://stackoverflow.com/a/10708913/742156
 ###
 
+lvl = 0
+prev = {}
+
 isArray = (obj) ->
   Object::toString.call(obj) is '[object Array]'
 
-build = (first, tail) ->
-  list = start(first, tail)
+build = (list) ->
   keyStack = []
-  doc = {}
+  doc = Object.create null
   obj = doc
   len = list.length
 
+  # console.log list
+
   doIndent = (key) ->
     if (not obj[key]?) or obj[key] is true
-      obj[key] = {}
+      obj[key] = Object.create null
     obj = obj[key]
 
-  # Hack: edge-case where we essentially have an empty body:
+  # HACK: edge-case where we essentially have an empty body:
   if (list.length is 1) and (list[0].type is 'text') and (not list[0].text?)
-    return {}
+    return Object.create null
 
   for item in list
     switch item.type
       when 'tag'
+        newObj = null
+
         keys = item.name.split ':'
         
         prevObj = obj # HACKish
@@ -32,13 +38,19 @@ build = (first, tail) ->
           doIndent key
 
         key = keys[keys.length-1]
-        unless obj[key]?
+        if not obj[key]?
           obj[key] = item.value or true
         else
-          if typeof obj[key] is 'string'
+          if (not item.value? or (typeof item.value is 'string')) and not isArray obj[key]
             obj[key] = [obj[key]]
+
           if isArray obj[key]
-            obj[key].push item.value or true
+            if item.value?
+              value = item.value
+            else
+              value = Object.create null
+              newObj = value
+            newObjIdx = obj[key].push value
         
         obj = prevObj # HACKish
         prev = item
@@ -58,21 +70,18 @@ build = (first, tail) ->
 
       when 'text'
         item.text ?= ''
-        if obj['!text']
-          obj['!text'] += '\n' + item.text
+        newObj ?= obj
+        if newObj['!text']?
+          newObj['!text'] += '\n' + item.text
         else
-          obj['!text'] = item.text
+          if typeof newObj is 'string'
+            _newObj = Object.create null
+            _newObj['!value'] = newObj
+            newObj = _newObj
+            prevObj[key] = newObj
+          newObj['!text'] = item.text
 
   return doc
-
-start = (first, tail) ->
-  done = [first[1]]
-  i = 0
-  while i < tail.length
-    done = done.concat tail[i][1][0]
-    done.push tail[i][1][1]
-    i += 1
-  return done
 
 depths = [0]
 
@@ -82,14 +91,15 @@ indent = (s) ->
 
   if depth > depths[0]
     depths.unshift depth
-    return [type: 'indent']
+    return [type: 'indent', depth: depth]
 
   dents = []
 
   while depth < depths[0]
     depths.shift()
-    dents.push type: 'outdent'
+    dents.push type: 'outdent', depth: depth
 
-  dents.push type: 'baddent'  unless depth is depths[0]
+  unless depth is depths[0]
+    dents.push type: 'baddent'
 
   return dents

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "An unopinionated documentation generator.",
   "main": "lib/index.js",
+  "bin": {
+    "cod": "bin/cli.js"
+  },
   "scripts": {
     "test": "make"
   },
@@ -32,7 +35,11 @@
     "gulp-template": "^0.1.1",
     "gulp": "^3.8.1",
     "gulp-coffee": "^2.0.1",
-    "file-utils": "^0.2.0",
-    "gulp-util": "^2.2.17"
+    "gulp-util": "^2.2.17",
+    "gulp-header": "^1.0.2"
+  },
+  "dependencies": {
+    "docopt": "^0.4.0",
+    "file-utils": "^0.2.0"
   }
 }

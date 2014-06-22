@@ -2,9 +2,11 @@ assert = require 'assert'
 fs = require 'fs'
 parser = require '../lib/parser'
 
+normalize = (o) -> JSON.stringify(JSON.parse(JSON.stringify(o)))
+
 testParse = (input, expected) ->
   result = parser.parse input
-  assert.deepEqual result, expected
+  assert.deepEqual normalize(result), normalize(expected)
 
 describe 'the cod parser', ->
   it 'parses plain old text', ->
@@ -56,8 +58,8 @@ describe 'the cod parser', ->
 
     expected = {
       "Rectangle": {
-        "!text": "A four-sided shape with all right angles.",
-        "extends": "Shape"
+        "extends": "Shape",
+        "!text": "A four-sided shape with all right angles."
       }
     }
 
@@ -94,14 +96,13 @@ describe 'the cod parser', ->
       @Rectangle
         @extends Shape
         A four-sided shape with all right angles.
-      @Rectangle
-        @mixin Scalable
+      @Rectangle:mixin Scalable
       '''
 
     expected = {
       "Rectangle": {
-        "!text": "A four-sided shape with all right angles.",
         "extends": "Shape",
+        "!text": "A four-sided shape with all right angles.",
         "mixin": "Scalable"
       }
     }
@@ -131,7 +132,7 @@ describe 'the cod parser', ->
     expected = {
       "test": {
         "foo": {
-          "bar": 42
+          "bar": "42"
         }
       }
     }
@@ -150,7 +151,7 @@ describe 'the cod parser', ->
       "test": {
         "foo": {
           "bar": {
-            "biz": 42
+            "biz": "42"
           }
         }
       }
@@ -171,7 +172,7 @@ describe 'the cod parser', ->
       "test": {
         "foo": {
           "bar": {
-            "biz": 42
+            "biz": "42"
           }
         }
       },
@@ -182,7 +183,7 @@ describe 'the cod parser', ->
 
     testParse input, expected
 
-  it 'preserves whitespace in text blocks', ->
+  it 'preserves vertical whitespace in text blocks', ->
     input =
       '''
       This is some multiline
@@ -194,6 +195,28 @@ describe 'the cod parser', ->
 
 
       Really!
+      '''
+
+    expected = input
+    
+    testParse input, {
+      "!text": input
+    }
+
+  it 'preserves horizontal whitespace in text blocks', ->
+    input =
+      '''
+      This is some multiline
+        text.
+       .
+        .
+          .
+             .
+                    .
+                               .
+       . 
+           .  .
+             .
       '''
 
     expected = input
@@ -232,6 +255,84 @@ describe 'the cod parser', ->
           }
         },
         "mixin": ["Scalable", "Movable"]
+      }
+    }
+
+    testParse input, expected
+
+  it 'allows for multiple text bodies in an array form', ->
+    input =
+      '''
+      @class:method:methodName
+        @example
+          This is my first example.
+        @example
+          This is my second.
+        @example
+          C-C-C-COMBO BREAKERR
+      '''
+
+    expected = {
+      "class": {
+        "method": {
+          "methodName": {
+            "example": [
+              {"!text": "This is my first example."},
+              {"!text": "This is my second."},
+              {"!text": "C-C-C-COMBO BREAKERR"}
+            ]
+          }
+        }
+      }
+    }
+
+    testParse input, expected
+
+  it 'handles the keyword `constructor`', ->
+    input =
+      '''
+      @test
+        @constructor
+          This should work.
+      '''
+
+    expected = {
+      "test": {
+        "constructor": {
+          "!text": "This should work."
+        }
+      }
+    }
+
+    testParse input, expected
+
+  it 'allows for tag-value pairs to contain nested text', ->
+    input =
+      '''
+      @test 42
+        This should work.
+      '''
+
+    expected = {
+      "test": {
+        "!value": "42",
+        "!text": "This should work."
+      }
+    }
+
+    testParse input, expected
+
+  it 'always treats blank lines following tags as text blocks', ->
+    input =
+      '''
+      @test
+        
+        This should work.
+      '''
+
+    expected = {
+      "test": {
+        "!text": "\nThis should work."
       }
     }
 

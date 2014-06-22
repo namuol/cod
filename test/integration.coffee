@@ -2,11 +2,13 @@ assert = require 'assert'
 fs = require 'fs'
 cod = require '../src/index'
 
+normalize = (o) -> JSON.stringify(JSON.parse(JSON.stringify(o)))
+
 test = (input, expected, openPat='###', closePat='###') ->
   result = cod input,
     open: openPat
     close: closePat
-  assert.deepEqual result, expected
+  assert.deepEqual normalize(result), normalize(expected)
 
 describe 'cod', ->
   it 'ignores plain old text', ->
