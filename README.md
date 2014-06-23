@@ -92,7 +92,7 @@ Options:
 ### API
 
 <a name='api_cod'></a>
-#### `cod(text, options={docBegin = "/**", docEnd = "*/"})`
+#### [`cod(text, options={docBegin = "/**", docEnd = "*/"})`](#api_cod)
 
 > <a name='api_cod_text'></a>
 > [`text`](#api_cod_text) (String)
