@@ -1,28 +1,35 @@
 assert = require 'assert'
-fs = require 'fs'
+tape = require 'tape'
 cod = require '../src/index'
 
 normalize = (o) -> JSON.stringify(JSON.parse(JSON.stringify(o)))
 
-test = (input, expected, openPat='###', closePat='###') ->
-  result = cod input,
-    open: openPat
-    close: closePat
-  assert.deepEqual normalize(result), normalize(expected)
+describe = (item, cb) ->
+  it = (capability, {input, expected, docBegin, docEnd}) ->
+    docBegin ?= '###'
+    docEnd ?= '###'
 
-describe 'cod', ->
-  it 'ignores plain old text', ->
-    input =
+    tape.test item + ' ' + capability, (t) ->
+      result = result = cod input,
+        docBegin: docBegin
+        docEnd: docEnd
+      t.deepEqual result, expected
+      t.end()
+      return
+
+  cb it
+
+describe 'cod', (it) ->
+  it 'ignores plain old text',
+    input:
       '''
       Hello, this is some text.
       '''
 
-    expected = {}
+    expected: {}
 
-    test input, expected
-
-  it 'can handle the example from the readme', ->
-    input =
+  it 'can handle the example from the readme',
+    input:
       '''
       ###
       @Rectangle
@@ -51,7 +58,7 @@ describe 'cod', ->
       mixin(Rectangle, Movable)
       '''
 
-    expected = {
+    expected: {
       "Rectangle": {
         "!text": "A four-sided shape with all right angles.\n",
         "extends": "Shape",
@@ -70,5 +77,3 @@ describe 'cod', ->
         ]
       }
     }
-
-    test input, expected

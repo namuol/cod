@@ -1,24 +1,30 @@
 assert = require 'assert'
-fs = require 'fs'
+tape = require 'tape'
 extract = require '../src/extract'
 
-textExtract = (input, expected, openPat='###', closePat='###') ->
-  result = extract input, openPat, closePat
-  assert.deepEqual result, expected
+describe = (item, cb) ->
+  it = (capability, {input, expected, docBegin, docEnd}) ->
+    docBegin ?= '###'
+    docEnd ?= '###'
+    tape.test item + ' ' + capability, (t) ->
+      result = extract input, docBegin, docEnd
+      t.deepEqual result, expected
+      t.end()
+      return
 
-describe 'the cod extractor', ->
-  it 'ignores plain old text', ->
-    input =
+  cb it
+
+describe 'the cod extractor', (it) ->
+  it 'ignores plain old text',
+    input:
       '''
       Hello, this is some text.
       '''
 
-    expected = ""
+    expected: ""
 
-    textExtract input, expected
-
-  it 'extracts text inside doc-blocks', ->
-    input =
+  it 'extracts text inside doc-blocks',
+    input:
       '''
       Hello, this is some text.
       ###
@@ -26,16 +32,13 @@ describe 'the cod extractor', ->
       ###
       '''
 
-    expected = 
+    expected: 
       """
       This is some doc text.
       """
 
-    textExtract input, expected
-
-
-  it 'intelligently de-indents blocks', ->
-    input =
+  it 'intelligently de-indents blocks',
+    input:
       '''
       Hello, this is some text.
         ###
@@ -45,17 +48,15 @@ describe 'the cod extractor', ->
         ###
       '''
 
-    expected =
+    expected:
       """
       This is some doc text.
         Hello
       test
       """
 
-    textExtract input, expected
-
-  it 'handles C-style doc-blocks', ->
-    input =
+  it 'handles C-style doc-blocks',
+    input:
       '''
       Hello, this is some text.
         /**
@@ -68,17 +69,19 @@ describe 'the cod extractor', ->
         */
       '''
 
-    expected =
+    expected:
       """
       This is some doc text.
         Hello
       test
       """
+    
+    docBegin: '/**'
 
-    textExtract input, expected, '/**', '*/'
+    docEnd: '*/'
 
-  it 'handles the example from the readme', ->
-    input =
+  it 'handles the example from the readme',
+    input:
       '''
       ###
       @Rectangle
@@ -107,7 +110,7 @@ describe 'the cod extractor', ->
       mixin(Rectangle, Movable)
       '''
 
-    expected =
+    expected:
       '''
       @Rectangle
         A four-sided shape with all right angles.
@@ -121,5 +124,3 @@ describe 'the cod extractor', ->
       @Rectangle:mixin Scalable
       @Rectangle:mixin Movable
       '''
-
-    textExtract input, expected

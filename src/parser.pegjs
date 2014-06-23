@@ -68,7 +68,18 @@ identifier =
 // Useful for peeking ahead without altering state:
 _tag =
   '@' name:identifier ' '* value:_text? {
-    return {type: 'tag', name: name, value: value};
+    var _value;
+    if(!isNaN(parseFloat(value))) {
+      _value = parseFloat(value);
+    } else if (value === 'true') {
+      _value = true;
+    } else if (value === 'false') {
+      _value = false;
+    } else {
+      _value = value;
+    }
+
+    return {type: 'tag', name: name, value: _value};
   }
 
 tag =

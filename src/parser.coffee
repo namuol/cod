@@ -8,6 +8,10 @@ prev = {}
 isArray = (obj) ->
   Object::toString.call(obj) is '[object Array]'
 
+primitiveTypes = ['string', 'boolean', 'number']
+
+isPrimitive = (obj) -> (typeof obj) in primitiveTypes
+
 build = (list) ->
   keyStack = []
   doc = Object.create null
@@ -17,8 +21,11 @@ build = (list) ->
   # console.log list
 
   doIndent = (key) ->
-    if (not obj[key]?) or obj[key] is true
+    val = obj[key]
+    if (not val?) or isPrimitive(val)
       obj[key] = Object.create null
+      if val? and val isnt true
+        obj[key]['!value'] = val
     obj = obj[key]
 
   # HACK: edge-case where we essentially have an empty body:
@@ -29,7 +36,6 @@ build = (list) ->
     switch item.type
       when 'tag'
         newObj = null
-
         keys = item.name.split ':'
         
         prevObj = obj # HACKish
@@ -38,19 +44,25 @@ build = (list) ->
           doIndent key
 
         key = keys[keys.length-1]
-        if not obj[key]?
-          obj[key] = item.value or true
-        else
-          if (not item.value? or (typeof item.value is 'string')) and not isArray obj[key]
-            obj[key] = [obj[key]]
 
-          if isArray obj[key]
+        if isArray obj
+          _obj = obj[obj.length-1]
+        else
+          _obj = obj
+
+        if not _obj[key]?
+          _obj[key] = item.value ? true
+        else
+          if (not item.value? or isPrimitive(item.value)) and not isArray _obj[key]
+            _obj[key] = [_obj[key]]
+
+          if isArray _obj[key]
             if item.value?
               value = item.value
             else
               value = Object.create null
               newObj = value
-            newObjIdx = obj[key].push value
+            _obj[key].push value
         
         obj = prevObj # HACKish
         prev = item
@@ -74,12 +86,13 @@ build = (list) ->
         if newObj['!text']?
           newObj['!text'] += '\n' + item.text
         else
-          if typeof newObj is 'string'
+          if (typeof newObj) in ['string', 'boolean', 'number']
             _newObj = Object.create null
             _newObj['!value'] = newObj
             newObj = _newObj
             prevObj[key] = newObj
           newObj['!text'] = item.text
+        obj = newObj
 
   return doc
 

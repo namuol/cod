@@ -8,15 +8,15 @@ doc = """
 cod: An unopinionated documentation generator.
 
 Usage:
-  cod [-b <open-pattern> -e <close-pattern>] [-o <output-file>] <input-file>...
+  cod [-b <doc-begin> -e <doc-end>] [-o <output-file>] <input-file>...
   cod -h | --help | --version
 
 Options:
-  -b <open-pattern>   Doc-block OPEN comment pattern [default: "/**"]
-  -e <close-pattern>  Doc-block CLOSE comment pattern [default: "*/"]
-  -o <output-file>    Output file [default: STDOUT]
-  -v --version        Show version.
-  -h --help           Show this screen.
+  -b <doc-begin>    String that marks the start of a doc-block [default: "/**"]
+  -e <doc-end>      String that marks the end of a doc-block [default: "*/"]
+  -o <output-file>  Output file [default: STDOUT]
+  -v --version      Show version.
+  -h --help         Show this screen.
 """
 
 {docopt} = require 'docopt'

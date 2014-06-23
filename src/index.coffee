@@ -1,7 +1,7 @@
 parse = require('../lib/parser').parse
 extract = require './extract'
 
-module.exports = (text, {open, close}) ->
-  open ?= '###'
-  close ?= '###'
-  return parse extract text, open, close
+module.exports = (text, {docBegin, docEnd}={}) ->
+  docBegin ?= '/**'
+  docEnd ?= '*/'
+  return parse extract text, docBegin, docEnd

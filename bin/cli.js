@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var cod, doc, docopt, f, file, inputs, options, pkg, result, _i, _len, _ref, _ref1;
 
-doc = "`             ,\n           _-\"\"-,-\"'._         \n     .-*'``           ``-.__.-`:\n  .'o   ))` ` ` ` ` ` `_`.---._:\n   `-'.._,,____...--*\"` `\"     \n         ``\ncod: An unopinionated documentation generator.\n\nUsage:\n  cod [-b <open-pattern> -e <close-pattern>] [-o <output-file>] <input-file>...\n  cod -h | --help | --version\n\nOptions:\n  -b <open-pattern>   Doc-block OPEN comment pattern [default: \"/**\"]\n  -e <close-pattern>  Doc-block CLOSE comment pattern [default: \"*/\"]\n  -o <output-file>    Output file [default: STDOUT]\n  -v --version        Show version.\n  -h --help           Show this screen.";
+doc = "`             ,\n           _-\"\"-,-\"'._         \n     .-*'``           ``-.__.-`:\n  .'o   ))` ` ` ` ` ` `_`.---._:\n   `-'.._,,____...--*\"` `\"     \n         ``\ncod: An unopinionated documentation generator.\n\nUsage:\n  cod [-b <doc-begin> -e <doc-end>] [-o <output-file>] <input-file>...\n  cod -h | --help | --version\n\nOptions:\n  -b <doc-begin>    String that marks the start of a doc-block [default: \"/**\"]\n  -e <doc-end>      String that marks the end of a doc-block [default: \"*/\"]\n  -o <output-file>  Output file [default: STDOUT]\n  -v --version      Show version.\n  -h --help         Show this screen.";
 
 docopt = require('docopt').docopt;
 

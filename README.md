@@ -2,59 +2,41 @@
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
 
-# Cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest)
+# cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest)
 
-Cod is an unopinionated documentation generator that outputs raw JSON, designed to work with any language.
+an unopinionated documentation generator that outputs raw JSON, designed to work with any language.
 
-### Example
-
-Usage: (`build.js`)
-
-```js
-var cod = require('cod'),
-    file = require('file-util'),
-    input = file.read('Rectangle.coffee'),
-    result;
-
-result = cod(input, {
-  open: '###*',
-  close: '###'
-});
-
-file.write('docs/Rectangle.json', result);
+```bash
+cod -o docs/Rectangle.json Rectangle.js
 ```
 
-Input: (`Rectangle.coffee`)
+Input: (`Rectangle.js`)
 
-```coffee
-###*
+```js
+/**
 @Rectangle
   A four-sided shape with all right angles.
   @extends Shape
-###
-class Rectangle extends Shape
-  ###*
-  @Rectangle:method:area
-    Get the area of this rectangle.
-    @return
-      The area of this rectangle.
-      @type Number
-  ###
-  area: -> return @width * @height
+*/
 
-###
-This wont be in the docs!
-###
+// ... code code code
 
-###*
+/**
+@Rectangle:method:area
+  Get the area of this rectangle.
+  @return
+    @type Number
+*/
+
+/**
 @Rectangle:mixin Scalable
-###
-mixin(Rectangle, Scalable)
-
-###*
 @Rectangle:mixin Movable
-###
-mixin(Rectangle, Movable)
+*/
+
+/**
+@Rectangle:event:resized
+  Fires whenever the width or height changes.
+*/
 ```
 
 Result: (`docs/Rectangle.json`)
@@ -73,16 +55,59 @@ Result: (`docs/Rectangle.json`)
         }
       }
     },
-    "mixin": ["Scalable", "Movable"]
+    "mixin": ["Scalable", "Movable"],
+    "event": {
+      "resized": {
+        "!text": "Fires whenever the width or height changes."
+      }
+    },
   }
 }
 ```
 
+### CLI
+
+```
+cod --help
+              ,
+           _-""-,-"'._         
+     .-*'``           ``-.__.-`:
+  .'o   ))` ` ` ` ` ` `_`.---._:
+   `-'.._,,____...--*"` `"     
+         ``
+cod: An unopinionated documentation generator.
+
+Usage:
+  cod [-b <doc-begin> -e <doc-end>] [-o <output-file>] <input-file>...
+  cod -h | --help | --version
+
+Options:
+  -b <doc-begin>    String that marks the start of a doc-block [default: "/**"]
+  -e <doc-end>      String that marks the end of a doc-block [default: "*/"]
+  -o <output-file>  Output file [default: STDOUT]
+  -v --version      Show version.
+  -h --help         Show this screen.
+```
+
+### API
+
+<a name='api_cod'></a>
+#### `cod(text, options={docBegin = "/**", docEnd = "*/"})`
+
+> <a name='api_cod_text'></a>
+> [`text`](#api_cod_text) (String)
+> > Text containing cod-style documentation. Probably source code.
+>
+> <a name='api_cod_options'></a>
+> [`options`](#api_cod_options) (Object)
+> > <a name='api_cod_options_docBegin'></a>
+> > [`docBegin`](#api_cod_options_docBegin) (String) default: `"/**"`
+> > > String that marks the start of a doc-block
+> > <a name='api_cod_options_docEnd'></a>
+> > [`docEnd`](#api_cod_options_docEnd) (String) default: `"*/"`
+> > > String that marks the end of a doc-block
+
 ### Syntax
-
-Anything starting with `@` is a "tag".
-
-Tags can contain anything except `:` or whitespace.
 
 ```
 @flag
@@ -97,13 +122,34 @@ Tags can contain anything except `:` or whitespace.
 ----
 
 ```
-@tag value
+@number 42
+@string Hello there.
+@boolean false
 ```
-
 
 ```json
 {
-  "tag": "value"
+  "number": 42,
+  "string": "Hello there.",
+  "boolean": false
+}
+```
+
+----
+
+```
+@example
+  This is some example text.
+
+  It can handle multiple lines.
+    Indentation is preserved.
+```
+
+```json
+{
+  "example": {
+    "!text": "This is some example text.\n\nIt can handle multiple lines.\n  Indentation is preserved."
+  }
 }
 ```
 
@@ -111,13 +157,13 @@ Tags can contain anything except `:` or whitespace.
 
 ```
 @root
-  @tag value
+  @nested value
 ```
 
 ```json
 {
   "root": {
-    "tag": "value"
+    "nested": "value"
   }
 }
 ```
@@ -151,6 +197,28 @@ Tags can contain anything except `:` or whitespace.
   "root": {
     "inline": {
       "nested": "value"
+    }
+  }
+}
+```
+
+----
+
+```
+@example This will be stored as example["!value"]
+  This allows for nested text and tags.
+  @likeThisOne 42
+    @andThis
+```
+
+```json
+{
+  "example": {
+    "!value": "This will be stored as example[\"!value\"]",
+    "!text": "This allows for nested text and other properties.",
+    "likeThisOne": {
+      "!value": 42,
+      "andThis": true
     }
   }
 }

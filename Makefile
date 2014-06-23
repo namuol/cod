@@ -9,6 +9,6 @@ clean:
 	rm -rf lib bin
 
 test:
-	@`npm bin`/mocha --compilers coffee:coffee-script/register
+	tap test
 
 .PHONY: build clean test

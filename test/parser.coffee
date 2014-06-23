@@ -1,72 +1,102 @@
 assert = require 'assert'
-fs = require 'fs'
+tape = require 'tape'
 parser = require '../lib/parser'
 
-normalize = (o) -> JSON.stringify(JSON.parse(JSON.stringify(o)))
+normalize = (o) -> JSON.stringify(o, null, 2)
 
-testParse = (input, expected) ->
-  result = parser.parse input
-  assert.deepEqual normalize(result), normalize(expected)
+describe = (item, cb) ->
+  it = (capability, {input, expected}) ->
+    tape.test item + ' ' + capability, (t) ->
+      result = parser.parse input
+      t.deepEqual result, expected
+      t.end()
+      return
 
-describe 'the cod parser', ->
-  it 'parses plain old text', ->
-    input =
+  cb it
+
+describe 'the cod parser', (it) ->
+  it 'parses plain old text',
+    input:
       '''
       Hello, this is some text.
       '''
 
-    expected = {
+    expected: {
       "!text": "Hello, this is some text."
     }
 
-    testParse input, expected
-
-  it 'parses a single tag', ->
-    input =
+  it 'parses a single tag',
+    input:
       '''
       @Rectangle
       '''
 
-    expected = {
+    expected: {
       "Rectangle": true
     }
+  
+  it 'parses integers',
+    input:
+      '''
+      @value 42
+      '''
 
-    testParse input, expected
+    expected: {
+      "value": 42
+    }
 
-  it 'parses a nested tag', ->
-    input =
+  it 'parses floats',
+    input:
+      '''
+      @value 42.5
+      '''
+
+    expected: {
+      "value": 42.5
+    }
+
+  it 'parses booleans',
+    input:
+      '''
+      @shouldBeTrue true
+      @shouldBeFalse false
+      '''
+
+    expected: {
+      "shouldBeTrue": true
+      "shouldBeFalse": false
+    }
+
+  it 'parses a nested tag',
+    input:
       '''
       @Rectangle
         @extends Shape
       '''
 
-    expected = {
+    expected: {
       "Rectangle": {
         "extends": "Shape"
       }
     }
 
-    testParse input, expected
-
-  it 'parses nested text', ->
-    input =
+  it 'parses nested text',
+    input:
       '''
       @Rectangle
         @extends Shape
         A four-sided shape with all right angles.
       '''
 
-    expected = {
+    expected: {
       "Rectangle": {
         "extends": "Shape",
         "!text": "A four-sided shape with all right angles."
       }
     }
 
-    testParse input, expected
-
-  it 'parses multiple outdented tags', ->
-    input =
+  it 'parses multiple outdented tags',
+    input:
       '''
       @foo
         @test
@@ -76,7 +106,7 @@ describe 'the cod parser', ->
         @test
       '''
 
-    expected = {
+    expected: {
       "foo": {
         "test": {
           "biz": true
@@ -88,10 +118,8 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
-
-  it 'allows tags to be "re-opened"', ->
-    input =
+  it 'allows tags to be "re-opened"',
+    input:
       '''
       @Rectangle
         @extends Shape
@@ -99,7 +127,7 @@ describe 'the cod parser', ->
       @Rectangle:mixin Scalable
       '''
 
-    expected = {
+    expected: {
       "Rectangle": {
         "extends": "Shape",
         "!text": "A four-sided shape with all right angles.",
@@ -107,60 +135,51 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
-
-  it 'builds an array when mutiple tag-value pairs occur', ->
-    input =
+  it 'builds an array when mutiple tag-value pairs occur',
+    input:
       '''
       @test aaa
       @test bbb
       @test ccc
       '''
 
-    expected = {
+    expected: {
       "test": ["aaa", "bbb", "ccc"]
     }
 
-    testParse input, expected
-
-  it 'allows for inline-nesting of tags', ->
-    input =
+  it 'allows for inline-nesting of tags',
+    input:
       '''
       @test:foo:bar 42
       '''
 
-    expected = {
+    expected: {
       "test": {
         "foo": {
-          "bar": "42"
+          "bar": 42
         }
       }
     }
 
-    testParse input, expected
-
-
-  it 'allows for mixing of inline-nested and normal nested tags', ->
-    input =
+  it 'allows for mixing of inline-nested and normal nested tags',
+    input:
       '''
       @test:foo:bar
         @biz 42
       '''
 
-    expected = {
+    expected: {
       "test": {
         "foo": {
           "bar": {
-            "biz": "42"
+            "biz": 42
           }
         }
       }
     }
 
-    testParse input, expected
-
-  it 'allows for mixing of inline-nested and normal nested tags with outdenting', ->
-    input =
+  it 'allows for mixing of inline-nested and normal nested tags with outdenting',
+    input:
       '''
       @test:foo:bar
         @biz 42
@@ -168,11 +187,11 @@ describe 'the cod parser', ->
         @yes
       '''
 
-    expected = {
+    expected: {
       "test": {
         "foo": {
           "bar": {
-            "biz": "42"
+            "biz": 42
           }
         }
       },
@@ -181,10 +200,8 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
-
-  it 'preserves vertical whitespace in text blocks', ->
-    input =
+  it 'preserves vertical whitespace in text blocks',
+    input:
       '''
       This is some multiline
       text.
@@ -197,14 +214,23 @@ describe 'the cod parser', ->
       Really!
       '''
 
-    expected = input
-    
-    testParse input, {
-      "!text": input
+    expected: {
+      "!text":
+        '''
+        This is some multiline
+        text.
+
+
+        Newlines are preserved.
+
+
+
+        Really!
+        '''
     }
 
-  it 'preserves horizontal whitespace in text blocks', ->
-    input =
+  it 'preserves horizontal whitespace in text blocks',
+    input:
       '''
       This is some multiline
         text.
@@ -219,14 +245,25 @@ describe 'the cod parser', ->
              .
       '''
 
-    expected = input
-    
-    testParse input, {
-      "!text": input
+    expected: {
+      "!text":
+        '''
+        This is some multiline
+          text.
+         .
+          .
+            .
+               .
+                      .
+                                 .
+         . 
+             .  .
+               .
+        '''
     }
 
-  it 'can handle the complex example from the readme', ->
-    input =
+  it 'can handle the complex example from the readme',
+    input:
       '''
       @Rectangle
         A four-sided shape with all right angles.
@@ -241,7 +278,7 @@ describe 'the cod parser', ->
       @Rectangle:mixin Movable
       '''
 
-    expected = {
+    expected: {
       "Rectangle": {
         "!text": "A four-sided shape with all right angles.\n",
         "extends": "Shape",
@@ -258,10 +295,8 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
-
-  it 'allows for multiple text bodies in an array form', ->
-    input =
+  it 'allows for multiple text bodies in an array form',
+    input:
       '''
       @class:method:methodName
         @example
@@ -272,7 +307,7 @@ describe 'the cod parser', ->
           C-C-C-COMBO BREAKERR
       '''
 
-    expected = {
+    expected: {
       "class": {
         "method": {
           "methodName": {
@@ -286,17 +321,41 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
+  it 'allows for multiple nested tags in an array form',
+    input:
+      '''
+      @class:method:methodName
+        @example
+          @aaa
+        @example
+          @bbb
+        @example
+          @ccc
+      '''
 
-  it 'handles the keyword `constructor`', ->
-    input =
+    expected: {
+      "class": {
+        "method": {
+          "methodName": {
+            "example": [
+              {"aaa": true},
+              {"bbb": true},
+              {"ccc": true}
+            ]
+          }
+        }
+      }
+    }
+
+  it 'handles the keyword `constructor`',
+    input:
       '''
       @test
         @constructor
           This should work.
       '''
 
-    expected = {
+    expected: {
       "test": {
         "constructor": {
           "!text": "This should work."
@@ -304,36 +363,30 @@ describe 'the cod parser', ->
       }
     }
 
-    testParse input, expected
-
-  it 'allows for tag-value pairs to contain nested text', ->
-    input =
+  it 'allows for tag-value pairs to contain nested text',
+    input:
       '''
       @test 42
         This should work.
       '''
 
-    expected = {
+    expected: {
       "test": {
-        "!value": "42",
+        "!value": 42,
         "!text": "This should work."
       }
     }
 
-    testParse input, expected
-
-  it 'always treats blank lines following tags as text blocks', ->
-    input =
+  it 'always treats blank lines following tags as text blocks',
+    input:
       '''
       @test
         
         This should work.
       '''
 
-    expected = {
+    expected: {
       "test": {
         "!text": "\nThis should work."
       }
     }
-
-    testParse input, expected

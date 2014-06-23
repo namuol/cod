@@ -1,4 +1,4 @@
-module.exports = (text, openPat, closePat) ->
+module.exports = (text, beginDoc, endDoc) ->
   result = []
   depth = 0
   subdepth = 0
@@ -6,11 +6,11 @@ module.exports = (text, openPat, closePat) ->
 
   for line in text.split '\n'
     if !inside
-      depth = line.indexOf openPat
+      depth = line.indexOf beginDoc
       if depth >= 0
         inside = true
     else
-      idx = line.indexOf closePat
+      idx = line.indexOf endDoc
       if idx >= 0
         inside = false
       else
