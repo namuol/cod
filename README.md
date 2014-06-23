@@ -103,6 +103,7 @@ Options:
 > > <a name='api_cod_options_docBegin'></a>
 > > [`docBegin`](#api_cod_options_docBegin) (String) default: `"/**"`
 > > > String that marks the start of a doc-block
+>
 > > <a name='api_cod_options_docEnd'></a>
 > > [`docEnd`](#api_cod_options_docEnd) (String) default: `"*/"`
 > > > String that marks the end of a doc-block
