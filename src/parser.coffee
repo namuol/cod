@@ -18,15 +18,18 @@ build = (list) ->
   obj = doc
   len = list.length
 
-  # console.log list
-
   doIndent = (key) ->
-    val = obj[key]
+    if isArray obj
+      _obj = obj[obj.length-1]
+    else
+      _obj = obj
+
+    val = _obj[key]
     if (not val?) or isPrimitive(val)
-      obj[key] = Object.create null
+      _obj[key] = Object.create null
       if val? and val isnt true
-        obj[key]['!value'] = val
-    obj = obj[key]
+        _obj[key]['!value'] = val
+    obj = _obj[key]
 
   # HACK: edge-case where we essentially have an empty body:
   if (list.length is 1) and (list[0].type is 'text') and (not list[0].text?)
@@ -39,7 +42,6 @@ build = (list) ->
         keys = item.name.split ':'
         
         prevObj = obj # HACKish
-        
         for key in keys[...-1]
           doIndent key
 
@@ -49,6 +51,13 @@ build = (list) ->
           _obj = obj[obj.length-1]
         else
           _obj = obj
+
+        if isPrimitive _obj
+          if not isArray obj
+            throw new Error 'Expected a list but got a primitive'
+          newObj = Object.create null
+          newObj['!value'] = _obj
+          _obj = obj[obj.length-1] = newObj
 
         if not _obj[key]?
           _obj[key] = item.value ? true
@@ -63,7 +72,7 @@ build = (list) ->
               value = Object.create null
               newObj = value
             _obj[key].push value
-        
+
         obj = prevObj # HACKish
         prev = item
 
@@ -78,6 +87,8 @@ build = (list) ->
         obj = doc
         for name in keyStack
           for key in name.split(':')
+            if isArray obj
+              obj = obj[obj.length-1]
             obj = obj[key]
 
       when 'text'
@@ -86,7 +97,7 @@ build = (list) ->
         if newObj['!text']?
           newObj['!text'] += '\n' + item.text
         else
-          if (typeof newObj) in ['string', 'boolean', 'number']
+          if isPrimitive newObj
             _newObj = Object.create null
             _newObj['!value'] = newObj
             newObj = _newObj

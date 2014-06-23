@@ -9,6 +9,6 @@ clean:
 	rm -rf lib bin
 
 test:
-	tap test
+	@`npm bin`/tap test
 
 .PHONY: build clean test

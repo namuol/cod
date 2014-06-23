@@ -24,8 +24,8 @@ for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 }
 
 result = JSON.stringify(cod(inputs.join(''), {
-  open: options['-b'],
-  close: options['-c']
+  docBegin: options['-b'],
+  docEnd: options['-e']
 }));
 
 if ((_ref1 = options['-o']) === 'STDOUT' || _ref1 === '-') {

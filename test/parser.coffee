@@ -390,3 +390,36 @@ describe 'the cod parser', (it) ->
         "!text": "\nThis should work."
       }
     }
+
+  it 'handles edge case where you have a list of items with tag-value pairs in each item',
+    input:
+      '''
+      @aaa
+        @bbb value1
+          @xxx value2
+            @yyy value3
+        @bbb value4
+          @xxx value5
+            @yyy value6
+      '''
+
+    expected: {
+      "aaa": {
+        "bbb": [
+          {
+            "!value": "value1",
+            "xxx": {
+              "!value": "value2",
+              "yyy": "value3"
+            }
+          },
+          {
+            "!value": "value4",
+            "xxx": {
+              "!value": "value5",
+              "yyy": "value6"
+            }
+          }
+        ]
+      }
+    }

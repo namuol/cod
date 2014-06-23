@@ -31,9 +31,10 @@ inputs = []
 for f in options['<input-file>']
   inputs.push file.read f
 
-result = JSON.stringify cod inputs.join(''),
-  open: options['-b']
-  close: options['-c']
+result = JSON.stringify cod(inputs.join(''),
+  docBegin: options['-b']
+  docEnd: options['-e']
+)
 
 if options['-o'] in ['STDOUT', '-']
   console.log result
