@@ -2,7 +2,7 @@
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
 
-# cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest)
+# cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod)
 
 an unopinionated documentation generator that outputs raw JSON, designed to work with any language.
 
