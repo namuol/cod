@@ -4,13 +4,26 @@
 
 # cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod)
 
-an unopinionated documentation generator that outputs raw JSON, designed to work with any language.
+a JSON-outputting doc-generator that works with any language.
+
+### why?
+
+cod allows you to...
+  
+  * ...use any template system.
+  * ...use any markup language ... or none.
+  * ...define your own tags.
+  * ...use any doc-block indicators (i.e. `/**` or `###*` or `--` or `//whatever`)  
+  * ...use a single doc format in any language.
+    * (particularly useful for projects that use multiple languages)
+
+### example
 
 ```bash
 cod -o docs/Rectangle.json Rectangle.js
 ```
 
-Input: (`Rectangle.js`)
+`Rectangle.js`:
 
 ```js
 /**
@@ -39,7 +52,7 @@ Input: (`Rectangle.js`)
 */
 ```
 
-Result: (`docs/Rectangle.json`)
+`docs/Rectangle.json`:
 
 ```json
 {
@@ -108,7 +121,7 @@ Options:
 > > [`docEnd`](#api_cod_options_docEnd) (String) default: `"*/"`
 > > > String that marks the end of a doc-block
 
-### Syntax
+### syntax
 
 ```
 @flag
@@ -225,13 +238,13 @@ Options:
 }
 ```
 
-### Install
+### install
 
 ```bash
 npm install cod
 ```
 
-### License
+### license
 
 MIT
 
