@@ -4,81 +4,78 @@
 
 # cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod)
 
-a JSON-outputting doc-generator that works with any language.
+an unassuming documentation generator that works with any language.
 
-### why?
+----
 
-cod allows you to...
-  
-  * ...use any template system.
-  * ...use any markup language ... or none.
-  * ...define your own tags.
-  * ...use any doc-block indicators (i.e. `/**` or `###*` or `--` or `//whatever`)  
-  * ...use a single doc format in any language.
-    * (particularly useful for projects that use multiple languages)
+Unlike most doc-generators, **cod** doesn't try to do everything for you.
 
-### example
+You write your docs in its flexible format, and it faithfully outputs JSON.
 
-```bash
-cod -o docs/Rectangle.json Rectangle.js
-```
-
-`Rectangle.js`:
-
-```js
+```javascript
 /**
-@Rectangle
-  A four-sided shape with all right angles.
-  @extends Shape
+@Something
+  Text can go anywhere.
+     Whitespace is preserved.
+  @flag
+  @property 42
+  @string Hello, cod
+  @nested
+    @property
+  @list A
+  @list B
+  @list C
 */
 
-// ... code code code
+// Later...
 
 /**
-@Rectangle:method:area
-  Get the area of this rectangle.
-  @return
-    @type Number
-*/
-
-/**
-@Rectangle:mixin Scalable
-@Rectangle:mixin Movable
-*/
-
-/**
-@Rectangle:event:resized
-  Fires whenever the width or height changes.
+@Something:extension
+  Tags can be "re-opened"
 */
 ```
-
-`docs/Rectangle.json`:
 
 ```json
 {
-  "Rectangle": {
-    "!text": "A four-sided shape with all right angles.",
-    "extends": "Shape",
-    "method": {
-      "area": {
-        "!text": "Get the area of this rectangle.",
-        "return": {
-          "!text": "The area of this rectangle.",
-          "type": "Number"
-        }
-      }
+  "Something": {
+    "!text": "Text can go anywhere.\n   Whitespace is preserved.",
+    "flag": true,
+    "property": 42,
+    "string": "Hello, cod",
+    "nested": {
+      "property": true
     },
-    "mixin": ["Scalable", "Movable"],
-    "event": {
-      "resized": {
-        "!text": "Fires whenever the width or height changes."
-      }
-    },
+    "list": ["A", "B", "C"],
+    "extension": {
+      "!text": "Tags can be \"re-opened\""
+    }
   }
 }
 ```
 
+Use whatever tags you need.
+
+Anything that isn't a `@tag` is text.
+
+It leaves your text untouched. You can process it as Markdown later. Or HTML. Or just keep it as plain text.
+
+Once you have the JSON, feed it to whatever you want:
+
+  - Utilize existing templates and styles.
+  - Build an app that can consume multiple versions of your API docs.
+  - Easily compare specific versions of your API at the structural level.
+
+**[cod](http://github.com/namuol/cod)** is language-agnostic; all it needs to know is the pattern that your project uses to denote a doc-block (i.e. `/**` and `*/`).
+
 ### CLI
+
+```
+cod *.js # or *.go or *.c or ...
+cod -b '###*' -e '###' *.coffee
+cod -b "'''*" -e "'''" *.py
+cod -b '{-*' -e '-}' *.hs
+cod -b '--[[*' -e ']]' *.lua
+```
 
 ```
 cod --help
