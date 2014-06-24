@@ -65,7 +65,7 @@ Once you have the JSON, feed it to whatever you want:
   - Build an app that can consume multiple versions of your API docs.
   - Easily compare specific versions of your API at the structural level.
 
-**[cod](http://github.com/namuol/cod)** is language-agnostic; all it needs to know is the pattern that your project uses to denote a doc-block (i.e. `/**` and `*/`).
+**cod** is language-agnostic; all it needs to know is the pattern that your project uses to denote a doc-block (i.e. `/**` and `*/`).
 
 ### CLI
 
