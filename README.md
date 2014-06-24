@@ -82,8 +82,8 @@ Usage:
   cod -h | --help | --version
 
 Options:
-  -b <doc-begin>    String that marks the start of a doc-block [default: "/**"]
-  -e <doc-end>      String that marks the end of a doc-block [default: "*/"]
+  -b <doc-begin>    String that marks the start of a doc-block [default: /**"
+  -e <doc-end>      String that marks the end of a doc-block [default: */]
   -o <output-file>  Output file [default: STDOUT]
   -v --version      Show version.
   -h --help         Show this screen.
