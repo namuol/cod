@@ -1,6 +1,6 @@
 {
   "name": "cod",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An unopinionated documentation generator.",
   "main": "lib/index.js",
   "bin": {
