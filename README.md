@@ -108,13 +108,14 @@ Options:
 ### API
 
 <a name='api_cod'></a>
-#### [`cod([text,] options={docBegin = "/**", docEnd = "*/", pretty = true})`](#api_cod)
+#### [`cod([[text,] options])`](#api_cod)
 > If [`text`](#api_cod_text) is supplied, cod will parse it and return
 > a plain JS object that contains your doc structure.
 > 
-> Otherwise, cod will return a [`Transform` stream](http://nodejs.org/api/stream.html#stream_class_stream_transform) into which
-> your source can be [[`pipe`]d](). `cod` will buffer the stream until completion, after which it will output
-> the `stringify`'d JSON of your doc's structure.
+> Otherwise, cod will return a [Transform stream](http://nodejs.org/api/stream.html#stream_class_stream_transform) into which
+> your source can be [piped](http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options).
+> `cod` will buffer the stream until completion, after which it will output
+> the stringified JSON of your doc's structure.
 >  
 > <a name='api_cod_text'></a>
 > [`text`](#api_cod_text) (String | Buffer)
