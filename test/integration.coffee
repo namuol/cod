@@ -1,6 +1,6 @@
 assert = require 'assert'
 tape = require 'tape'
-cod = require '../src/index'
+cod = require '../lib/index'
 
 normalize = (o) -> JSON.stringify(JSON.parse(JSON.stringify(o)))
 

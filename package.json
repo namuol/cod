@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "docopt": "^0.4.0",
-    "file-utils": "^0.2.0"
+    "file-utils": "^0.2.0",
+    "bufferstreams": "0.0.2",
+    "combined-stream": "0.0.5"
   }
 }

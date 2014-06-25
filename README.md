@@ -4,7 +4,7 @@
 
 # cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod)
 
-an unassuming documentation generator that works with any language.
+An unassuming documentation generator that works with any language.
 
 ----
 
@@ -78,6 +78,10 @@ cod -b '--[[*' -e ']]' *.lua
 ```
 
 ```
+cat *.js | cod  > api.json
+```
+
+```
 cod --help
               ,
            _-""-,-"'._         
@@ -85,18 +89,20 @@ cod --help
   .'o   ))` ` ` ` ` ` `_`.---._:
    `-'.._,,____...--*"` `"     
          ``
-cod: An unopinionated documentation generator.
+cod: An unassuming documentation generator.
 
 Usage:
-  cod [-b <doc-begin> -e <doc-end>] [-o <output-file>] <input-file>...
+  cod [-b <doc-begin> -e <doc-end>] [-o <output-file>] [-u] [<input-file>...]
   cod -h | --help | --version
 
 Options:
   -b <doc-begin>    String that marks the start of a doc-block [default: /**]
   -e <doc-end>      String that marks the end of a doc-block [default: */]
   -o <output-file>  Output file [default: STDOUT]
+  -u --ugly         Output non-pretty JSON.
   -v --version      Show version.
   -h --help         Show this screen.
+  <input-file>...   File(s) containing docs. If none, cod reads from STDIN.
 ```
 
 ### API
@@ -238,7 +244,7 @@ Options:
 ### install
 
 ```bash
-npm install cod
+npm install -g cod
 ```
 
 ### license
