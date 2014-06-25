@@ -105,6 +105,14 @@ Options:
   <input-file>...   File(s) containing docs. If none, cod reads from STDIN.
 ```
 
+### gulp
+
+See [gulp-cod](http://github.com/namuol/gulp-cod).
+
+### Grunt
+
+[Create an issue](http://github.com/namuol/cod/issues) if you make a Grunt plugin for cod, and I'll list it here.
+
 ### API
 
 <a name='api_cod'></a>
