@@ -108,10 +108,16 @@ Options:
 ### API
 
 <a name='api_cod'></a>
-#### [`cod(text, options={docBegin = "/**", docEnd = "*/"})`](#api_cod)
-
+#### [`cod([text,] options={docBegin = "/**", docEnd = "*/", pretty = true})`](#api_cod)
+> If [`text`](#api_cod_text) is supplied, cod will parse it and return
+> a plain JS object that contains your doc structure.
+> 
+> Otherwise, cod will return a [`Transform` stream](http://nodejs.org/api/stream.html#stream_class_stream_transform) into which
+> your source can be [[`pipe`]d](). `cod` will buffer the stream until completion, after which it will output
+> the `stringify`'d JSON of your doc's structure.
+>  
 > <a name='api_cod_text'></a>
-> [`text`](#api_cod_text) (String)
+> [`text`](#api_cod_text) (String | Buffer)
 > > Text containing cod-style documentation. Probably source code.
 >
 > <a name='api_cod_options'></a>
@@ -123,6 +129,11 @@ Options:
 > > <a name='api_cod_options_docEnd'></a>
 > > [`docEnd`](#api_cod_options_docEnd) (String) default: `"*/"`
 > > > String that marks the end of a doc-block
+>
+> > <a name='api_cod_options_pretty'></a>
+> > [`pretty`](#api_cod_options_pretty) (boolean) default: `true`
+> > > Format the JSON output with `JSON.stringify(doc, null, 2)`
+> > > **Only applicable in stream mode when `text` is not supplied**
 
 ### syntax
 

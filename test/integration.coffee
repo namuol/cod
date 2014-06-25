@@ -1,4 +1,3 @@
-assert = require 'assert'
 tape = require 'tape'
 cod = require '../lib/index'
 

@@ -25,6 +25,9 @@ processStream = ({docBegin, docEnd, pretty}=defaults) ->
     cb null, JSON.stringify(result, null, (if pretty then 2 else 0)) + '\n'
 
 cod = ->
+  if arguments[0] instanceof Buffer
+    arguments[0] = arguments[0].toString 'utf8'
+  
   if typeof arguments[0] is 'string'
     return processString arguments...
 
