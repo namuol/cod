@@ -2,7 +2,7 @@
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
 
-# cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod) [![Dependency Status](http://img.shields.io/david/namuol/cod.svg)](https://david-dm.org/namuol/cod)
+# cod [![Build Status](https://drone.io/github.com/namuol/cod/status.png)](https://drone.io/github.com/namuol/cod/latest) [![Module Version](http://img.shields.io/npm/v/cod.svg?style=flat)](https://www.npmjs.org/package/cod) [![Dependency Status](http://img.shields.io/david/namuol/cod.svg?style=flat)](https://david-dm.org/namuol/cod)
 
 An unassuming documentation generator that works with any language.
 
