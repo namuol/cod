@@ -286,7 +286,7 @@ var doc;
 doc = cod([
   '/**',
   'Hello, cod.',
-  '@answer 42'
+  '@answer 42',
   '*/'
 ].join('\n'));
 
