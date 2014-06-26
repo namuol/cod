@@ -54,7 +54,7 @@ cod does zero code analysis and it doesn't know what `@class`, `@return`, `@para
 
 cod does not generate HTML, PDFs, or even Plaintext docs; that part is left up to you.
 
-<h4 align="center">cod may not be <em>smart</em>, but it's not <em>stubborn</em>, either.</h4>
+#### cod may not be *smart*, but it's not *stubborn*, either.
 
 You write your docs in cod's format, and it faithfully outputs JSON. That's it.
 
@@ -181,7 +181,7 @@ Specifying a `@tag` more than once will turn it into a list of values.
 
 ----
 
-Values of tags that have nested properties or text bodies gets stored as `@complexProperty["!value"]`.
+Values of tags that have nested properties or text bodies are stored as `@complexProperty["!value"]`.
 
 ```
 @simpleTag 100
