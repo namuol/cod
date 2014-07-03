@@ -30,7 +30,7 @@ An unassuming documentation format that works with any language.
   "Example": {
     "!text": "Text can go anywhere.\n   Whitespace is preserved.",
     "flag": true,
-    "property": 42,
+    "number": 42,
     "string": "Hello, cod",
     "nested": {
       "!text": "Nested text.",
@@ -45,16 +45,18 @@ An unassuming documentation format that works with any language.
 
 cod is **not** a documentation generator.
 
-It is merely a documentation [***format***](#format) that produces nearly "1-to-1" JSON.
+It is a documentation [***format***](#format) that outputs nearly "1-to-1" JSON.
 
-cod is not a complete replacement for tools like *doxygen* or *Sphinx*, but it functions as
+cod does zero code analysis. 
+
+cod doesn't know what `@class`, `@return`, `@param` or `@any` `@other` tag means.
+
+cod does not generate HTML, PDFs, or any traditionally human-readable documentation; that part is left up to you.
+
+As such, cod is not a standalone replacement for tools like *doxygen* or *Sphinx*, but it functions as
 the first step in a more flexible doc-generation process for those who need finer control.
 
-cod does zero code analysis and it doesn't know what `@class`, `@return`, `@param` or `@any` `@other` tag means.
-
-cod does not generate HTML, PDFs, or even Plaintext docs; that part is left up to you.
-
-#### cod may not be *smart*, but it's not *stubborn*, either.
+### cod may not be *smart*, but it's not *stubborn*, either.
 
 You write your docs in cod's format, and it faithfully outputs JSON. That's it.
 
@@ -86,8 +88,6 @@ Tags without values are treated as boolean flags:
 }
 ```
 
-----
-
 There are also numbers and strings, and you can explicitly set a flag to `false`:
 
 ```
@@ -104,8 +104,6 @@ There are also numbers and strings, and you can explicitly set a flag to `false`
 }
 ```
 
-----
-
 Structure is designated by indentation.
 
 ```
@@ -120,8 +118,6 @@ Structure is designated by indentation.
   }
 }
 ```
-
-----
 
 Whitespace after indentation is preserved in text blocks.
 
@@ -141,8 +137,6 @@ Whitespace after indentation is preserved in text blocks.
 }
 ```
 
-----
-
 Specifying a `@tag` more than once will turn it into a list of values.
 
 ```
@@ -161,8 +155,6 @@ Specifying a `@tag` more than once will turn it into a list of values.
 }
 ```
 
-----
-
 `@tags:like:this` are equivalent to nested tags.
 
 ```
@@ -179,8 +171,6 @@ Specifying a `@tag` more than once will turn it into a list of values.
 }
 ```
 
-----
-
 Values of tags that have nested properties or text bodies are stored as `@complexProperty["!value"]`.
 
 ```
@@ -194,7 +184,7 @@ Values of tags that have nested properties or text bodies are stored as `@comple
 ```json
 {
   "simpleTag": 100,
-  "example": {
+  "complexTag": {
     "!value": "This will be stored as example[\"!value\"]",
     "!text": "This allows for nested text and other properties.",
     "likeThis": true
@@ -330,6 +320,6 @@ npm install -g cod
 
 MIT
 
----
+----
 
 [![Analytics](https://ga-beacon.appspot.com/UA-33247419-2/cod/README.md)](https://github.com/igrigorik/ga-beacon)
