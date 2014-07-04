@@ -1,0 +1,157 @@
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Old Standard TT Regular'), local('OldStandardTT-Regular'), url(http://themes.googleusercontent.com/static/fonts/oldstandardtt/v5/n6RTCDcIPWSE8UNBa4k-DAjWwMcLosnYS7_elQHKBmA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Old Standard TT Bold'), local('OldStandardTT-Bold'), url(http://themes.googleusercontent.com/static/fonts/oldstandardtt/v5/5Ywdce7XEbTSbxs__4X1_LHCWPYgV_Fgx41n4RSinLs.woff) format('woff');
+}
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Old Standard TT Italic'), local('OldStandardTT-Italic'), url(http://themes.googleusercontent.com/static/fonts/oldstandardtt/v5/QQT_AUSp4AV4dpJfIN7U5KCfO6YLYlwZkGaKgYrym0o.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Serif'), local('PTSerif-Regular'), url(http://themes.googleusercontent.com/static/fonts/ptserif/v6/sDRi4fY9bOiJUbgq53yZCfesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://themes.googleusercontent.com/static/fonts/ptserif/v6/QABk9IxT-LFTJ_dQzv7xpIbN6UDyHWBl620a-IRfuBk.woff) format('woff');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://themes.googleusercontent.com/static/fonts/ptserif/v6/03aPdn7fFF3H6ngCgAlQzBsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
+@import 'nib'
+
+*
+  box-sizing border-box
+
+html, body
+  margin 0
+
+body
+  font-family sans-serif
+
+example_width = 400px
+base_width = example_width * 2
+
+.bg
+  position absolute
+  z-index -1
+  background-image url('cod.jpg')
+  background-repeat no-repeat
+  background-position 51% -100px
+  background-size 900px
+  width 100%
+  height 100%
+  top 0
+  left 0
+
+center(width=base_width)
+  width width
+  margin auto
+
+a[href], a[href]:visited
+  color #1e1e1e
+  border-bottom 1px solid #ccc
+  text-decoration none
+
+a[href]:hover
+  color #000
+  border-bottom 2px solid #000
+
+header
+  text-align center
+
+  h1,h2,h3,h4,h5,h6
+    font-weight normal
+  h2
+    font-size 24px
+  h5
+    font-style italic
+  hr
+    border 0
+    border-top 2px solid #1e1e1e
+    width 200px
+
+  .rule
+    border-top 1px solid #1e1e1e
+    margin 0
+    margin-top -1px
+    position relative
+    top 19px
+    span
+      position relative
+      top -19px
+      background white
+      padding 0 10px
+
+section.text
+  center(600px)
+  header
+    margin-bottom 40px
+    h1
+      font-size 24px
+
+.main
+  font-family 'Old Standard TT', serif
+  margin auto
+  margin-top 280px
+  margin-bottom 300px
+  font-size 20px
+  color #1E1E1E
+  
+  > header
+    center(600px)
+
+  .content
+    
+    section.main-example
+      background-color #333
+      width 100%
+      padding 20px
+
+    > section
+      margin-top 100px
+      
+    margin 0
+    // center(example_width * 2)
+    font-family 'PT Serif'
+
+    header
+      font-family 'Old Standard TT'
+      font-weight 400
+      text-transform uppercase
+    
+    p
+      text-align justify
+
+    .examples
+      center(example_width * 2)
+
+      .example
+        display inline-block
+        color whitesmoke
+        width example_width
+
+      pre
+        margin-top 15px
+        padding 10px
+        font-size 14px
+        margin 0
+        word-wrap break-word

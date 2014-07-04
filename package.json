@@ -1,0 +1,22 @@
+{
+  "name": "combo-docs",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Louis Acresti <louis.acresti@gmail.com>",
+  "license": "Private",
+  "dependencies": {
+    "coffee-script": "~1.7.1",
+    "gulp": "^3.8.2",
+    "gulp-concat": "^2.2.0",
+    "gulp-connect": "^2.0.5",
+    "gulp-jade": "^0.6.0",
+    "gulp-markdown": "^0.1.2",
+    "gulp-s3": "^0.3.0",
+    "gulp-stylus": "^1.0.2",
+    "gulp-util": "~2.2.14",
+    "gulp-wrap": "~0.3.0",
+    "nib": "^1.0.3",
+    "gulp-open": "^0.2.8",
+    "marked": "^0.3.2"
+  }
+}

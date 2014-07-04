@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><title>cod: An unassuming documentation format </title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><!--if lt IE 9script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
+--><link rel="stylesheet" href="style.css"></head><body><div class="bg"></div><div class="main"><header><h1>COD</h1><h2 class="rule"><span>THE UNASSUMING DOC FORMAT</span></h2></header><div class="content"><section class="main-example"><section class="examples"><div class="example left"><pre><code class="lang-js">/**
+@Example
+  Text can go anywhere.
+
+  @flag
+  @number 42
+  @string Hello, cod
+  @nested
+    Nested text.
+    @property yay
+  @list A
+  @list B
+  @list C
+*/
+</code></pre>
+</div><div class="example right"><pre><code class="lang-json">{
+  &quot;Example&quot;: {
+    &quot;!text&quot;: &quot;Text can go anywhere.\n&quot;,
+
+    &quot;flag&quot;: true,
+    &quot;number&quot;: 42,
+    &quot;string&quot;: &quot;Hello, cod&quot;,
+    &quot;nested&quot;: {
+      &quot;!text&quot;: &quot;Nested text.&quot;,
+      &quot;property&quot;: &quot;yay&quot;
+    },
+    &quot;list&quot;: [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
+  }
+}
+</code></pre>
+</div></section></section><section class="about"><section class="text"><p>Cod is a language-agnostic documentation format that produces
+simple, nearly "line-for-line" JSON.</p><p>That's all it does.</p><p>The flexible nature of Cod affords its users a great deal of control:</p><ul><li>Integrate Cod's output into your existing web templates.</li><li>Use any markup language in text sections (or none at all).</li><li>Create domain-specific <code>@tags</code> for concise clarity.</li><li>Use a single doc format across multiple languages.</li><li>Easily compare specific versions of your API using <code>diff</code>.</li></ul><p>Cod isn't for everybody. If you just need quick, human-readable
+docs, use an all-in-one solution like
+<a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> or
+<a href="sphinx-doc.org">Sphinx</a>.</p><p> </p><p>See its <a href="http://github.com/namuol/cod">GitHub</a> page for details.</p></section></section></div><footer class="footer"></footer></div><script type="text/javascript"></script></body></html>

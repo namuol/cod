@@ -1,0 +1,83 @@
+extends layout
+
+block title
+  | cod: An unassuming documentation format 
+
+block header
+  header
+    h1 COD
+    h2.rule
+      span THE UNASSUMING DOC FORMAT
+    //- h5 Documentus modestus
+
+block content
+  section.main-example
+    section.examples
+      .example.left
+        :markdown
+          ```js
+          /**
+          @Example
+            Text can go anywhere.
+
+            @flag
+            @number 42
+            @string Hello, cod
+            @nested
+              Nested text.
+              @property yay
+            @list A
+            @list B
+            @list C
+          */
+          ```
+      
+      .example.right
+        :markdown
+          ```json
+          {
+            "Example": {
+              "!text": "Text can go anywhere.\n",
+
+              "flag": true,
+              "number": 42,
+              "string": "Hello, cod",
+              "nested": {
+                "!text": "Nested text.",
+                "property": "yay"
+              },
+              "list": ["A", "B", "C"]
+            }
+          }
+          ```
+
+  section.about
+    section.text
+      //- header
+        h1.rule
+          span Stupid by Design
+      p
+        | Cod is a language-agnostic documentation format that produces
+        | simple, nearly "line-for-line" JSON.
+      p
+        | That's all it does.
+      p
+        | The flexible nature of Cod affords its users a great deal of control:
+
+      ul
+        li Integrate Cod's output into your existing web templates.
+        li Use any markup language in text sections (or none at all).
+        li Create domain-specific <code>@tags</code> for concise clarity.
+        li Use a single doc format across multiple languages.
+        li Easily compare specific versions of your API using <code>diff</code>.
+
+      p
+        | Cod isn't for everybody. If you just need quick, human-readable
+        | docs, use an all-in-one solution like
+        | <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> or
+        | <a href="sphinx-doc.org">Sphinx</a>.
+
+      p
+        | 
+      p
+        | See its <a href="http://github.com/namuol/cod">GitHub</a> page for details.
