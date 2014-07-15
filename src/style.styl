@@ -47,7 +47,7 @@ html, body
 body
   font-family sans-serif
 
-example_width = 400px
+example_width = 340px
 base_width = example_width * 2
 
 .bg
@@ -55,15 +55,24 @@ base_width = example_width * 2
   z-index -1
   background-image url('cod.jpg')
   background-repeat no-repeat
-  background-position 51% -180px
-  background-size 900px
+  background-position 51% 0px
+  background-size 400px
   width 100%
   height 100%
   top 0
   left 0
+  opacity 0.8
+
+p code, ul code
+  font-family monospace
+  font-size 80%
+  // background #333
+  padding 0 5px
+  border-radius 2px
+  // color white
 
 center(width=base_width)
-  width width
+  max-width width
   margin auto
 
 a[href], a[href]:visited
@@ -80,6 +89,8 @@ header
 
   h1,h2,h3,h4,h5,h6
     font-weight normal
+  h1, h2
+    text-transform uppercase
   h2
     font-size 24px
   h5
@@ -111,16 +122,18 @@ hr
   margin 50px 0
 
 section.text
-  center(600px)
+  center(620px)
+  padding 20px
   header
-    margin-bottom 40px
+    margin-top 40px
+    margin-bottom 20px
     h1
       font-size 24px
 
 .main
   font-family 'Old Standard TT', serif
   margin auto
-  margin-top 250px
+  margin-top 165px
   margin-bottom 300px
   font-size 20px
   color #1E1E1E
@@ -134,9 +147,7 @@ section.text
       background-color #333
       width 100%
       padding 20px
-
-    > section
-      margin-top 100px
+      margin-top 40px
       
     margin 0
     // center(example_width * 2)
