@@ -124,3 +124,22 @@ describe 'the cod extractor', (it) ->
       @Rectangle:mixin Scalable
       @Rectangle:mixin Movable
       '''
+
+  it 'inserts whitespace on blank lines to match previous indentation level',
+    input:
+      '''
+      ###
+      Test
+        
+        Test
+
+      ###
+      '''
+
+    expected:
+      """
+      Test
+        
+        Test
+        
+      """
