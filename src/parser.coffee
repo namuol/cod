@@ -28,8 +28,6 @@ extractObj = (obj) ->
   return _obj
 
 build = (list) ->
-  console.log list
-
   keyStack = []
   doc = Object.create null
   obj = doc
@@ -99,8 +97,6 @@ build = (list) ->
             obj = obj[key]
 
       when 'text'
-        console.log 'item', item
-        console.log 'obj', obj
         item.text ?= ''
         
         _obj = extractObj obj
