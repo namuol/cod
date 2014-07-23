@@ -18,7 +18,7 @@ module.exports = (text, beginDoc, endDoc) ->
         search = substr.search /[^ ]/
         if search >= 0
           subdepth = search
-        else if substr.length is 0
+        else if substr.length < subdepth
           # HACK:
           # Correct blank lines' whitespace to match
           #  the previous indentation level.

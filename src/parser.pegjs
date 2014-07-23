@@ -47,6 +47,7 @@ line =
 indent =
   tag_indent
 / text_indent
+// blank_indent
 
 tag_indent =
   i:" "* &_tag {
@@ -58,6 +59,11 @@ text_indent =
   i:" "* &(_text / newline) &{ return prev.type === 'tag' || i.length < lvl; } {
     lvl = i.length;
     return i;
+  }
+
+blank_indent =
+  &newline {
+    return null;
   }
 
 identifier =

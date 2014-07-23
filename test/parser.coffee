@@ -423,3 +423,34 @@ describe 'the cod parser', (it) ->
         ]
       }
     }
+
+  it 'handles edge case of immediate text inside second list item with a value (issue #4)',
+    input:
+      '''
+      @a
+        @b 1
+          x
+        @b 2
+          y
+        @b 3
+          z
+      '''
+
+    expected: {
+      "a": {
+        "b": [
+          {
+            "!value": 1,
+            "!text": "x"
+          },
+          {
+            "!value": 2,
+            "!text": "y"
+          },
+          {
+            "!value": 3,
+            "!text": "z"
+          }
+        ]
+      }
+    }

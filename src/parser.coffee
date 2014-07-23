@@ -12,7 +12,24 @@ primitiveTypes = ['string', 'boolean', 'number']
 
 isPrimitive = (obj) -> (typeof obj) in primitiveTypes
 
+extractObj = (obj) ->
+  if isArray obj
+    _obj = obj[obj.length-1]
+  else
+    _obj = obj
+
+  if isPrimitive _obj
+    if not isArray obj
+      throw new Error 'Expected a list but got a primitive'
+    newObj = Object.create null
+    newObj['!value'] = _obj
+    _obj = obj[obj.length-1] = newObj
+
+  return _obj
+
 build = (list) ->
+  console.log list
+
   keyStack = []
   doc = Object.create null
   obj = doc
@@ -47,17 +64,7 @@ build = (list) ->
 
         key = keys[keys.length-1]
 
-        if isArray obj
-          _obj = obj[obj.length-1]
-        else
-          _obj = obj
-
-        if isPrimitive _obj
-          if not isArray obj
-            throw new Error 'Expected a list but got a primitive'
-          newObj = Object.create null
-          newObj['!value'] = _obj
-          _obj = obj[obj.length-1] = newObj
+        _obj = extractObj obj
 
         if not _obj[key]?
           _obj[key] = item.value ? true
@@ -92,18 +99,16 @@ build = (list) ->
             obj = obj[key]
 
       when 'text'
+        console.log 'item', item
+        console.log 'obj', obj
         item.text ?= ''
-        newObj ?= obj
-        if newObj['!text']?
-          newObj['!text'] += '\n' + item.text
+        
+        _obj = extractObj obj
+
+        if _obj['!text']?
+          _obj['!text'] += '\n' + item.text
         else
-          if isPrimitive newObj
-            _newObj = Object.create null
-            _newObj['!value'] = newObj
-            newObj = _newObj
-            prevObj[key] = newObj
-          newObj['!text'] = item.text
-        obj = newObj
+          _obj['!text'] = item.text
 
   return doc
 
