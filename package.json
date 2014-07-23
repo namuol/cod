@@ -1,5 +1,5 @@
 {
-  "name": "combo-docs",
+  "name": "cod-gh-pages",
   "version": "0.0.0",
   "private": true,
   "author": "Louis Acresti <louis.acresti@gmail.com>",
@@ -17,6 +17,7 @@
     "gulp-wrap": "~0.3.0",
     "nib": "^1.0.3",
     "gulp-open": "^0.2.8",
-    "marked": "^0.3.2"
+    "marked": "^0.3.2",
+    "cod": "^0.4.3"
   }
 }

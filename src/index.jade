@@ -20,18 +20,16 @@ block content
         :markdown
           ```js
           /**
-          @Example
-            Text can go anywhere.
-
-            @flag
-            @number 42
-            @string Hello, cod
-            @nested
-              Nested text.
-              @property yay
-            @list A
-            @list B
-            @list C
+          @SomeModule
+            Text about @SomeModule
+            
+            @use_any_tag_you_want
+            @property
+              Text about @property
+              @sub_property 42
+            @list a
+            @list b
+            @list c
           */
           ```
       
@@ -39,17 +37,14 @@ block content
         :markdown
           ```json
           {
-            "Example": {
-              "!text": "Text can go anywhere.\n",
-
-              "flag": true,
-              "number": 42,
-              "string": "Hello, cod",
-              "nested": {
-                "!text": "Nested text.",
-                "property": "yay"
+            "SomeModule": {
+              "!text": "Text about @SomeModule\n",
+              "use_any_tag_you_want": true,
+              "property": {
+                "!text": "Text about @property",
+                "sub_property": 42
               },
-              "list": ["A", "B", "C"]
+              "list": [ "a", "b", "c" ]
             }
           }
           ```
