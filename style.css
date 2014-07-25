@@ -178,6 +178,7 @@ section.text header h1 {
   margin: auto;
 }
 .main .content .examples .example {
+  vertical-align: top;
   display: inline-block;
   color: #f5f5f5;
   width: 340px;

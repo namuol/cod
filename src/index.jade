@@ -39,6 +39,7 @@ block content
           {
             "SomeModule": {
               "!text": "Text about @SomeModule\n",
+
               "use_any_tag_you_want": true,
               "property": {
                 "!text": "Text about @property",
@@ -96,24 +97,14 @@ block content
           | Here are some scenarios where Cod might be a good choice:
 
         h4 Multi-Language Projects
-
-        p
-          | You've written a JavaScript library for your commercial web service and want
-          | to release it to your customers.
-
-        p
-          | Your docs are already written in JSDoc, so you go about creating a custom theme to match your
-          | service's existing website, giving the docs an official, professional quality.
-
-        p
-          | Suddenly, your customers begin clamoring for PHP and Ruby libraries as well, so you create them,
-          | but PHP and Ruby each have their own doc-generators, and suddenly you need to create
-          | <em>another</em> two new themes in entirely different doc-gen systems.
-        p
-          | This would have been an ideal use-case for Cod.
         p 
-          | Since Cod is language-agnostic, it is possible to use the same doc
-          | format in all languages, and the resulting JSON can be fed to a <em>single</em> set of templates.
+          | Since Cod is language-agnostic, it's possible to use the same doc
+          | format in all languages, and the resulting JSON can be fed to a <em>single</em> set of
+          | templates in your language/framework of choice.
+        p
+          | This allows you to give your docs a cohesive structure and professional look
+          | without the need to create and maintain multiple custom doc-generator themes
+          | (typically one for each language).
 
         a(name='domain-specific-docs')
         h4 Domain-Specific Docs
@@ -122,13 +113,11 @@ block content
         p
           | Most doc-generators limit their <code>@tags</code> to the terminology of the languages it supports, (i.e. <code>@class</code>,<code>@return</code>, etc.)
           | but Cod is language-agnostic, so any <code>@tag</code> is valid.
-
         p
           | Cod allows you to use tags like <code>@model</code>, <code>@view</code>, and <code>@controller</code> — <em>or <code>@whatever</code></em> — to
           | more concisely describe the structure of your code.
 
         h4 Obscure Languages
-
         p
           | Maybe you just don't have any other option.
         p
