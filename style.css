@@ -174,14 +174,14 @@ section.text header h1 {
   text-align: justify;
 }
 .main .content .examples {
-  max-width: 680px;
+  max-width: 720px;
   margin: auto;
 }
 .main .content .examples .example {
   vertical-align: top;
   display: inline-block;
   color: #f5f5f5;
-  width: 340px;
+  width: 360px;
 }
 .main .content .examples pre {
   margin-top: 15px;
