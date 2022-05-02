@@ -1,3 +1,11 @@
+> ⚠️ **No longer maintained** ⚠️
+>
+> cod is no longer being updated or maintained.
+>
+> Take a look at [jaames/cod](https://github.com/jaames/cod) for a modernized
+> rewrite if you're interested in trying cod but are having trouble getting
+> this repo building/running locally.
+
 <p align="center">
   <img src="http://i.imgur.com/Owgsb3R.jpg"/>
 </p>
